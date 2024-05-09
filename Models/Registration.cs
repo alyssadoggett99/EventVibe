@@ -21,6 +21,6 @@ namespace EventVibe.Models
 
         // Navigation properties
         public Event Event { get; set; }
-        public ApplicationUser User { get; set; }  // Changed from User to ApplicationUser
+        public ApplicationUser User { get; set; }  
     }
 }

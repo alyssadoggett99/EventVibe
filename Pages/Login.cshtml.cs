@@ -22,7 +22,6 @@ public class LoginModel : PageModel
     {
         if (ModelState.IsValid)
         {
-            // Perform login logic here
         }
         return Page();
     }

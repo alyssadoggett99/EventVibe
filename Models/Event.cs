@@ -27,7 +27,6 @@ namespace EventVibe.Models
 
         public ICollection<Survey> Surveys { get; set; }
 
-        // Assuming ApplicationUser is used
         [ForeignKey("OrganizerId")]
         public ApplicationUser Organizer { get; set; }
 

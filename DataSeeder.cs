@@ -34,7 +34,7 @@ public class DataSeeder
     {
         if (await userManager.FindByEmailAsync(email) == null)
         {
-            var user = new ApplicationUser // Ensure this is your ApplicationUser
+            var user = new ApplicationUser
             {
                 UserName = email,
                 Email = email,
@@ -61,14 +61,22 @@ public class DataSeeder
             }
         }
     }
-    public static async Task SeedEvents(EventVibeContext context)
+    public static async Task SeedEvents(EventVibeContext context, UserManager<ApplicationUser> userManager)
     {
+        var organizer = await userManager.FindByEmailAsync("organizer@eventvibe.com");
+        if (organizer == null)
+        {
+
+            throw new InvalidOperationException("Organizer must exist before seeding events.");
+        }
+
         if (!context.Events.Any())
         {
-            for (int i = 1; i <= 30; i++) // Creating 30 events to ensure pagination can be demonstrated
+            for (int i = 1; i <= 30; i++)
             {
                 context.Events.Add(new Event
                 {
+                    OrganizerId = organizer.Id,
                     EventName = $"Event {i}",
                     Description = "This is a sample description for event " + i,
                     Location = "Location " + i,
@@ -91,7 +99,7 @@ public class DataSeeder
                     context.Registrations.Add(new Registration
                     {
                         EventId = i,
-                        UserId = firstUser.Id, // Id is an integer
+                        UserId = firstUser.Id,
                         DateRegistered = DateTime.Now.AddDays(-i)
                     });
                 }
@@ -99,7 +107,6 @@ public class DataSeeder
             }
         }
     }
-
 
     public static async Task SeedSurveys(EventVibeContext context, UserManager<ApplicationUser> userManager)
     {
@@ -113,7 +120,7 @@ public class DataSeeder
                     context.Surveys.Add(new Survey
                     {
                         EventId = i,
-                        UserId = firstUser.Id, // Ensure this is an int
+                        UserId = firstUser.Id,
                         CommentDetails = "This was a great event " + i,
                         Rating = i % 5 + 1
                     });

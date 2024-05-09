@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using EventVibe.Models; // Make sure this uses your actual models' namespace.
+using EventVibe.Models; 
 using System.Linq;
 using System.Threading.Tasks;
 

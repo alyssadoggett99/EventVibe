@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;
-using EventVibe.Models; // Assuming ApplicationUser is under the Models namespace
+using EventVibe.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +27,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequiredLength = 8;
 })
-.AddRoles<IdentityRole<int>>() // Using int as the generic type parameter for IdentityRole
+.AddRoles<IdentityRole<int>>()
 .AddEntityFrameworkStores<EventVibeContext>();
 
 var app = builder.Build();
@@ -37,12 +37,12 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     app.UseHsts();
-    app.UseHttpsRedirection(); // Enforce HTTPS in non-development environments
+    app.UseHttpsRedirection();
 }
 
 app.UseStaticFiles();
 app.UseRouting();
-app.UseAuthentication(); // Ensure the authentication middleware is added
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
 
@@ -61,9 +61,8 @@ async Task SeedDatabaseAsync(IHost app)
     var context = services.GetRequiredService<EventVibeContext>();
 
     // Ensure the database is created
-    await context.Database.EnsureCreatedAsync(); // Consider using MigrateAsync() in production environments
-    
-    // Check and see if seeding is necessary, e.g., check if any users/roles already exist
+    await context.Database.EnsureCreatedAsync();
+
     if (!await roleManager.RoleExistsAsync("Administrator"))
     {
         await DataSeeder.SeedRoles(roleManager);
@@ -72,7 +71,9 @@ async Task SeedDatabaseAsync(IHost app)
     {
         await DataSeeder.SeedUsers(userManager);
     }
-    await DataSeeder.SeedEvents(context);
+    await DataSeeder.SeedRoles(services.GetRequiredService<RoleManager<IdentityRole<int>>>());
+    await DataSeeder.SeedUsers(userManager);
+    await DataSeeder.SeedEvents(context, userManager);  
     await DataSeeder.SeedRegistrations(context, userManager);
     await DataSeeder.SeedSurveys(context, userManager);
 }

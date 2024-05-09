@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
-using EventVibe.Models; // Add this line if your Event class is inside the EventVibe.Models namespace
+using EventVibe.Models; 
 
 public class CreateModel : PageModel
 {
