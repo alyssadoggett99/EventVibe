@@ -1,5 +1,65 @@
 ﻿@page
 @model IndexModel
 
-<h1>Welcome to EventVibe</h1>
-<p>Find the latest events or plan your own.</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">EventVibe</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-page="./Events">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-page="./Create">Create Event</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-page="./Login">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Welcome to EventVibe</h1>
+    <p>Find the latest events or plan your own.</p>
+</div>
+
+
+<a asp-page="./Events" class="btn btn-primary">View Events</a>
+<br>
+<a asp-page="./Create" class="btn btn-success">Create Event</a>
+<br>
+<a asp-page="./Login" class="btn btn-secondary">Login</a>
+
+<style>
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 5px;
+        text-decoration: none;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: 1px solid #007bff;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: 1px solid #28a745;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: 1px solid #6c757d;
+    }
+</style>
+
