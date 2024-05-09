@@ -1,0 +1,7 @@
+@page "{id:int}"
+@model DetailsModel
+
+<h2>@Model.Event.EventName</h2>
+<p>@Model.Event.Date.ToShortDateString()</p>
+<p>@Model.Event.Location</p>
+<p>@Model.Event.Description</p>

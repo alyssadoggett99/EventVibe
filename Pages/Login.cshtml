@@ -1,0 +1,8 @@
+@page
+@model LoginModel
+
+<form method="post">
+    <input asp-for="Input.Email" type="email" placeholder="Email" />
+    <input asp-for="Input.Password" type="password" placeholder="Password" />
+    <button type="submit">Log in</button>
+</form>

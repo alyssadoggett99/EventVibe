@@ -1,0 +1,58 @@
+@page
+@model EventsModel
+
+@{
+    ViewData["Title"] = "Events List";
+}
+
+<h1>Events</h1>
+
+<form method="get" class="form-inline">
+    <input type="text" name="searchString" value="@Model.CurrentFilter" class="form-control"
+        placeholder="Search events..." />
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Events"
+                    asp-route-sortOrder="@(Model.CurrentSort == "name_asc" ? "name_desc" : "name_asc")">
+                    Event Name
+                </a>
+            </th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Events)
+        {
+            <tr>
+                <td>@item.EventName</td>
+                <td>@item.Date.ToShortDateString()</td>
+                <td>@item.Location</td>
+                <td>@item.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pager">
+    <a asp-page="./Events" asp-route-pageNumber="@(Model.PageNumber - 1)" asp-route-currentFilter="@Model.CurrentFilter"
+        asp-route-sortOrder="@Model.CurrentSort"
+        class="btn btn-default @(Model.PageNumber == 1 ? "disabled" : "")">Previous</a>
+    <a asp-page="./Events" asp-route-pageNumber="@(Model.PageNumber + 1)" asp-route-currentFilter="@Model.CurrentFilter"
+        asp-route-sortOrder="@Model.CurrentSort"
+        class="btn btn-default @(Model.PageNumber >= Model.Events.TotalPages ? "disabled" : "")">Next</a>
+</div>
+
+
+<style>
+    .disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+</style>

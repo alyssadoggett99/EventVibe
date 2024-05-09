@@ -1,0 +1,10 @@
+@page
+@model CreateModel
+
+<form method="post">
+    <input asp-for="Event.EventName" />
+    <input asp-for="Event.Date" type="date" />
+    <input asp-for="Event.Location" />
+    <textarea asp-for="Event.Description"></textarea>
+    <button type="submit">Create Event</button>
+</form>
